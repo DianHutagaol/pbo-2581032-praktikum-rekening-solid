@@ -1,27 +1,31 @@
 public class ProsesAkhirBulan {
     public void potongBiayaAdmin(Rekening[] daftar) {
         for (Rekening r : daftar) {
-            r.potongAdmin(10000);
-            System.out.println("Potong admin " + r.getNamaPemilik() + ": Saldo menjadi Rp" + String.format("%,d", (long)r.getSaldo()).replace(',', '.'));
+            double admin = r.hitungBiayaAdmin();
+            r.potongAdmin(admin);
+            String nominal = "Rp" + String.format("%,d", (long)admin).replace(',', '.');
+            System.out.printf("%-3s biaya admin  : %s\n", r.getNomorRekening(), nominal);
         }
     }
 
     public void tambahBunga(BerBunga[] daftar) {
         for (BerBunga b : daftar) {
+            double bunga = b.hitungBunga();
             b.tambahBunga();
             Rekening r = (Rekening) b;
-            System.out.println("Tambah bunga " + r.getNamaPemilik() + ": Saldo menjadi Rp" + String.format("%,d", (long)r.getSaldo()).replace(',', '.'));
+            String nominal = "Rp" + String.format("%,d", (long)bunga).replace(',', '.');
+            System.out.printf("%-3s bunga        : %s\n", r.getNomorRekening(), nominal);
         }
     }
 
     public void autodebet(Rekening[] daftar, int premi) {
         for (Rekening r : daftar) {
             boolean berhasil = r.tarik(premi);
-            String saldoStr = String.format("Rp%,d", (long)r.getSaldo()).replace(',', '.');
             if (berhasil) {
-                System.out.println("Autodebet premi " + r.getNamaPemilik() + " sebesar Rp" + premi + " berhasil. Saldo: " + saldoStr);
+                String nominal = "Rp" + String.format("%,d", premi).replace(',', '.');
+                System.out.printf("%-3s autodebet    : %s\n", r.getNomorRekening(), nominal);
             } else {
-                System.out.println("Autodebet premi " + r.getNamaPemilik() + " sebesar Rp" + premi + " gagal.");
+                System.out.printf("%-3s autodebet    : gagal\n", r.getNomorRekening());
             }
         }
     }

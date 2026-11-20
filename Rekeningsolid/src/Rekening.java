@@ -1,4 +1,4 @@
-// Kontrak tarik: true kalau berhasil, false kalau gagal; tidak pernah melempar exception.
+// Kontrak tarik: true kalau berhasil, false kalau gagal; tidak pernah melempar exception [1].
 public abstract class Rekening {
     protected String nomorRekening;
     protected String namaPemilik;
@@ -15,6 +15,7 @@ public abstract class Rekening {
     public double getSaldo() { return saldo; }
 
     public abstract String keterangan();
+    public abstract double hitungBiayaAdmin();
 
     public void potongAdmin(double biaya) {
         this.saldo -= biaya;

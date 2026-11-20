@@ -1,9 +1,10 @@
 public class LaporanBank {
     public void cetakDaftar(String judul, Rekening[] daftar) {
-        System.out.println("=== " + judul + " ===");
+        System.out.println("========== " + judul + " ==========");
         for (Rekening r : daftar) {
             String saldoStr = String.format("Rp%,d", (long)r.getSaldo()).replace(',', '.');
-            System.out.println(r.getNomorRekening() + " | " + r.getNamaPemilik() + " | Saldo: " + saldoStr + " | " + r.keterangan());
+            System.out.printf("%-3s | %-8s | %13s\n", r.getNomorRekening(), r.getNamaPemilik(), saldoStr);
+            System.out.println("      " + r.keterangan());
         }
     }
 
@@ -12,7 +13,8 @@ public class LaporanBank {
         for (Rekening r : daftar) {
             total += r.getSaldo();
         }
+        System.out.println("-----------------------------------");
         String totalStr = String.format("Rp%,d", (long)total).replace(',', '.');
-        System.out.println("Total Saldo Seluruh Rekening: " + totalStr);
+        System.out.println("Total dana bank : " + totalStr);
     }
 }

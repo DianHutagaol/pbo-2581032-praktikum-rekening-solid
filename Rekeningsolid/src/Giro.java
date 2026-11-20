@@ -1,10 +1,18 @@
 public class Giro extends Rekening {
-    public Giro(String nomorRekening, String namaPemilik, double saldo) {
+    private int batasOverdraft;
+
+    public Giro(String nomorRekening, String namaPemilik, double saldo, int batasOverdraft) {
         super(nomorRekening, namaPemilik, saldo);
+        this.batasOverdraft = batasOverdraft;
     }
 
     @Override
     public String keterangan() {
-        return "Giro, tanpa bunga";
+        return "Giro, batas overdraft Rp" + String.format("%,d", batasOverdraft).replace(',', '.');
+    }
+
+    @Override
+    public double hitungBiayaAdmin() {
+        return 15000;
     }
 }

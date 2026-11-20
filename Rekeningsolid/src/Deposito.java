@@ -1,5 +1,5 @@
 public class Deposito extends Rekening implements BerBunga {
-    private double sukuBunga = 0.04; // 4.0%
+    private double sukuBunga = 0.04;
 
     public Deposito(String nomorRekening, String namaPemilik, double saldo) {
         super(nomorRekening, namaPemilik, saldo);
@@ -11,17 +11,22 @@ public class Deposito extends Rekening implements BerBunga {
     }
 
     @Override
-    public void tambahBunga() {
-        saldo += saldo * sukuBunga;
+    public double hitungBiayaAdmin() {
+        return 0;
     }
 
     @Override
-    public void potongAdmin(double biaya) {
-        // Deposito tidak dikenakan biaya admin
+    public double hitungBunga() {
+        return saldo * sukuBunga;
+    }
+
+    @Override
+    public void tambahBunga() {
+        saldo += hitungBunga();
     }
 
     /*
-     * Versi melanggar LSP (dijalankan pada tahap pengujian):
+     * Versi melanggar LSP pada tahap pengujian [1]:
      * @Override
      * public boolean tarik(double jumlah) {
      *     throw new UnsupportedOperationException("Deposito tidak bisa ditarik");
@@ -33,7 +38,7 @@ public class Deposito extends Rekening implements BerBunga {
 
     @Override
     public boolean tarik(double jumlah) {
-        // Perbaikan patuh kontrak LSP (tidak pernah melempar exception)
+        // Perbaikan patuh kontrak LSP ( return false jika tidak bisa ditarik ) [1]
         return false;
     }
 }
