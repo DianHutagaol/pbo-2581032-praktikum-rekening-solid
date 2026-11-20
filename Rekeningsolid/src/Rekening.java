@@ -1,3 +1,4 @@
+// Kontrak tarik: true kalau berhasil, false kalau gagal; tidak pernah melempar exception.
 public abstract class Rekening {
     protected String nomorRekening;
     protected String namaPemilik;
@@ -13,10 +14,17 @@ public abstract class Rekening {
     public String getNamaPemilik() { return namaPemilik; }
     public double getSaldo() { return saldo; }
 
-    // Menggantikan cetakInfo()
     public abstract String keterangan();
 
     public void potongAdmin(double biaya) {
         this.saldo -= biaya;
+    }
+
+    public boolean tarik(double jumlah) {
+        if (jumlah <= 0 || jumlah > saldo) {
+            return false;
+        }
+        saldo -= jumlah;
+        return true;
     }
 }

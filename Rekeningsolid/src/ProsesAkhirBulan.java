@@ -13,4 +13,16 @@ public class ProsesAkhirBulan {
             System.out.println("Tambah bunga " + r.getNamaPemilik() + ": Saldo menjadi Rp" + String.format("%,d", (long)r.getSaldo()).replace(',', '.'));
         }
     }
+
+    public void autodebet(Rekening[] daftar, int premi) {
+        for (Rekening r : daftar) {
+            boolean berhasil = r.tarik(premi);
+            String saldoStr = String.format("Rp%,d", (long)r.getSaldo()).replace(',', '.');
+            if (berhasil) {
+                System.out.println("Autodebet premi " + r.getNamaPemilik() + " sebesar Rp" + premi + " berhasil. Saldo: " + saldoStr);
+            } else {
+                System.out.println("Autodebet premi " + r.getNamaPemilik() + " sebesar Rp" + premi + " gagal.");
+            }
+        }
+    }
 }
